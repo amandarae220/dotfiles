@@ -11,7 +11,7 @@ Personal development environment and AI workflow configuration.
 | `git/` | Git config and commit message template |
 | `shell/` | Zsh aliases and config |
 | `vscode/` | Editor settings |
-| `templates/` | Starter files for new projects |
+| `templates/` | Starter files for new projects (README, React component) |
 
 ## Setup
 
