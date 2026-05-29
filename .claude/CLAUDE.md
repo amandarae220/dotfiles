@@ -17,6 +17,7 @@ Reference them before acting on any task of that type.
 - Anti-patterns: ~/.claude/skills/global/anti-patterns.md
 - PR template: ~/.claude/skills/global/pr-template.md
 - Decision log: ~/.claude/skills/global/decision-log-template.md
+- README (personal projects): ~/.claude/skills/global/readme-personal.md
 
 ## General Rules
 - Always check if a solution already exists in the codebase before creating new.
