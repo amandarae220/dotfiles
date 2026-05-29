@@ -1,0 +1,36 @@
+# <type>(<scope>): <subject>
+#
+# Types:
+#   feat     — new feature
+#   fix      — bug fix
+#   refactor — code change that's neither feat nor fix
+#   style    — formatting, whitespace (no logic change)
+#   test     — adding or updating tests
+#   docs     — documentation only
+#   chore    — build, config, tooling, deps
+#   perf     — performance improvement
+#   a11y     — accessibility improvement
+#   ci       — CI/CD changes
+#
+# Scope: component, module, or area affected (optional but encouraged)
+#   Examples: (auth), (Button), (api), (nav), (resume-viz)
+#
+# Subject rules:
+#   - Imperative mood: "add" not "added" or "adds"
+#   - No capital first letter
+#   - No period at the end
+#   - Max 72 characters total on first line
+#
+# Body (optional — leave blank line after subject):
+#   - Explain WHY, not what
+#   - Wrap at 72 characters
+#
+# Examples:
+#   feat(resume): add animated skill timeline component
+#   fix(nav): correct keyboard trap in mobile menu
+#   a11y(Button): add aria-label to icon-only variants
+#   refactor(hooks): extract useFetch into shared utility
+#
+# -----------------------------------------------
+# Claude Code: run commit-review skill before committing
+# -----------------------------------------------

@@ -1,0 +1,129 @@
+# -----------------------------------------------
+# Path
+# -----------------------------------------------
+export PATH="$HOME/.npm-global/bin:$HOME/bin:/usr/local/bin:$PATH"
+
+# -----------------------------------------------
+# Editor
+# -----------------------------------------------
+export EDITOR="code --wait"
+export VISUAL="code --wait"
+
+# -----------------------------------------------
+# History
+# -----------------------------------------------
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
+# -----------------------------------------------
+# Navigation
+# -----------------------------------------------
+alias ..="cd .."
+alias ...="cd ../.."
+alias ~="cd ~"
+alias dl="cd ~/Downloads"
+alias dev="cd ~/dev"          # update to your projects folder
+alias dots="cd ~/dotfiles"
+
+# -----------------------------------------------
+# Git aliases (supplement .gitconfig)
+# -----------------------------------------------
+alias g="git"
+alias gs="git s"
+alias gl="git lg"
+alias gco="git co"
+alias gcob="git cob"
+alias gp="git p"
+alias gpf="git pf"
+alias gpl="git pl"
+alias ga="git a"
+alias gc="git c"
+alias gca="git ca"
+alias gundo="git undo"
+alias gnuke="git clean-branches"
+
+# -----------------------------------------------
+# NPM / Node
+# -----------------------------------------------
+alias ni="npm install"
+alias nid="npm install --save-dev"
+alias nr="npm run"
+alias nrd="npm run dev"
+alias nrb="npm run build"
+alias nrt="npm run test"
+alias nrl="npm run lint"
+alias nlg="npm list -g --depth=0"
+
+# -----------------------------------------------
+# Dev workflow
+# -----------------------------------------------
+alias ls="ls -la --color=auto"
+alias grep="grep --color=auto"
+alias c="clear"
+alias reload="source ~/.zshrc"
+alias ip="ipconfig getifaddr en0"
+alias ports="lsof -i -P -n | grep LISTEN"
+
+# Open current dir in VS Code
+alias e="code ."
+
+# Start a new project with git init + initial commit
+newproject() {
+  mkdir -p "$1" && cd "$1" && git init && touch README.md && git add . && git commit -m "chore: initial commit"
+  echo "✅ $1 initialized"
+}
+
+# Quick Claude Code session starter — opens project + prints loaded skills
+aistart() {
+  echo "🤖 Starting AI session in $(pwd)"
+  echo "📋 Global skills loaded from ~/.claude/skills/global/"
+  ls ~/.claude/skills/global/
+  echo ""
+  echo "💡 Run: claude"
+}
+
+# Commit with auto review reminder
+smart-commit() {
+  echo "🔍 Staged diff:"
+  git diff --staged --stat
+  echo ""
+  echo "⚡ Run commit-review skill in Claude Code before committing."
+  echo "   Or proceed: git commit"
+}
+
+# Show all git aliases
+aliases() {
+  git config --list | grep alias | sed 's/alias\.//' | sort
+}
+
+# Kill process on port
+killport() {
+  lsof -ti:"$1" | xargs kill -9
+  echo "✅ Killed process on port $1"
+}
+
+# -----------------------------------------------
+# Claude Code shortcuts
+# -----------------------------------------------
+alias ai="claude"
+alias aihelp="claude --help"
+
+# -----------------------------------------------
+# NVM (if used)
+# -----------------------------------------------
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# -----------------------------------------------
+# Prompt (clean, shows git branch)
+# -----------------------------------------------
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' (%b)'
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %F{green}❯%f '

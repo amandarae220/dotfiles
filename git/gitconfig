@@ -1,0 +1,117 @@
+[user]
+	name = YOUR NAME
+	email = YOUR EMAIL
+
+[core]
+	editor = code --wait
+	autocrlf = input
+	excludesfile = ~/.gitignore_global
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[init]
+	defaultBranch = main
+
+[commit]
+	template = ~/.git-commit-template.txt
+	gpgsign = false
+
+[push]
+	default = current
+	autoSetupRemote = true
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoStash = true
+
+[merge]
+	tool = vscode
+	conflictstyle = diff3
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+[diff]
+	tool = vscode
+	colorMoved = default
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+
+# -----------------------------------------------
+# Aliases — productivity + readable history
+# -----------------------------------------------
+[alias]
+	# Status & log
+	s        = status -sb
+	lg       = log --oneline --graph --decorate --all
+	last     = log -1 HEAD --stat
+	history  = log --pretty=format:'%C(yellow)%h%Creset %C(cyan)%ad%Creset %C(green)%an%Creset %s' --date=short
+	changed  = diff --name-only
+
+	# Staging
+	a        = add .
+	ap       = add -p
+
+	# Committing
+	c        = commit -m
+	ca       = commit --amend --no-edit
+	cam      = commit --amend
+
+	# Branching
+	b        = branch
+	ba       = branch -a
+	bd       = branch -d
+	bD       = branch -D
+	co       = checkout
+	cob      = checkout -b
+	main     = checkout main
+	recent   = branch --sort=-committerdate --format='%(refname:short)' | head -10
+
+	# Remote
+	p        = push
+	pf       = push --force-with-lease
+	pl       = pull
+	f        = fetch --all --prune
+
+	# Undo
+	undo     = reset HEAD~1 --mixed
+	unstage  = restore --staged .
+	discard  = restore .
+
+	# Stash
+	ss       = stash save
+	sp       = stash pop
+	sl       = stash list
+
+	# Cleanup
+	clean-branches = "!git branch --merged main | grep -v 'main' | xargs git branch -d"
+	prune-remote   = remote prune origin
+
+	# Claude Code workflow
+	review   = "!git diff --staged | echo 'Run commit-review skill on this diff'"
+	ai-log   = log --oneline -20
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
