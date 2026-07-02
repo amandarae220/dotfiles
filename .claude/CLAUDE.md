@@ -18,6 +18,8 @@ Reference them before acting on any task of that type.
 - PR template: ~/.claude/skills/global/pr-template.md
 - Decision log: ~/.claude/skills/global/decision-log-template.md
 - README (personal projects): ~/.claude/skills/global/readme-personal.md
+- Portfolio writing (data-journalism voice & structure): ~/.claude/skills/global/portfolio-writing.md
+- Writing voice (Amanda's tone across everything she writes): ~/.claude/skills/global/voice.md
 
 ## General Rules
 - Always check if a solution already exists in the codebase before creating new.
