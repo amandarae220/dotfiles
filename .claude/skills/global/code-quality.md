@@ -42,9 +42,5 @@
 - No wildcard imports (`import * as`)
 
 ## What "Done" Means
-- Works as intended
-- Handles error and empty states
-- Accessible
-- Has tests for behavior
-- No console.logs left in
-- No commented-out code
+
+See `verification-before-completion.md` — do not claim completion without fresh verification evidence.
