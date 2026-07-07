@@ -28,6 +28,11 @@ Reference them before acting on any task of that type.
 - Verification before completion (evidence before claims): ~/.claude/skills/global/verification-before-completion.md
 - Receiving code review (technical rigor, not performative agreement): ~/.claude/skills/global/receiving-code-review.md
 - Finishing a branch (tests + diff score + merge/PR/discard): ~/.claude/skills/global/finishing-a-branch.md
+- Web quality audit (Lighthouse-style 4-domain audit): ~/.claude/skills/global/web-quality-audit.md
+- Web performance (budgets, images, fonts, caching, CRP): ~/.claude/skills/global/web-performance.md
+- Core Web Vitals (LCP, INP, CLS — targeted fixes): ~/.claude/skills/global/core-web-vitals.md
+- SEO (technical + on-page + structured data): ~/.claude/skills/global/seo.md
+- Web best practices (CSP, SRI, Trusted Types, browser compat): ~/.claude/skills/global/web-best-practices.md
 
 ## General Rules
 - Always check if a solution already exists in the codebase before creating new.
