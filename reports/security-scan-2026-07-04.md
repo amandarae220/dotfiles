@@ -33,12 +33,12 @@ Each repo was scanned (read-only, no files modified) for: exposed secrets/creden
 ## 🚨 Critical
 
 **`neo-control` — live, currently-exploitable exposed credential**
-`SECURITY [severity: critical]: CONTEXT.md:101 — Real admin passphrase committed in plaintext ("VITE_ADMIN_PASS # currently: checkadmininsights") in a tracked file — must be treated as compromised.`
+`SECURITY [severity: critical]: CONTEXT.md:101 — Real admin passphrase committed in plaintext ("VITE_ADMIN_PASS # currently: [REDACTED]") in a tracked file — must be treated as compromised.`
 - The value is a `VITE_`-prefixed env var, which Vite inlines into the public JS bundle regardless — so `AdminPage.tsx` also ships the same value client-side, and `sessions.ts` reads the `sessions` table with the public anon key with no server-side check. The password gate is cosmetic and trivially bypassed by calling the Supabase REST endpoint directly.
 - **Action: rotate `VITE_ADMIN_PASS` now, remove the literal value from `CONTEXT.md`, and move real access control server-side (Supabase RLS scoped to an authenticated role) — a client-side string compare is not authorization.**
 
 **`amanda-repository` — burned credential in git history (already remediated in current code)**
-`SECURITY [severity: critical]: src/environments/environment.ts (history, commit 875772e) — Plaintext admin password "admininsights" committed 2026-06-14.`
+`SECURITY [severity: critical]: src/environments/environment.ts (history, commit 875772e) — Plaintext admin password "[REDACTED]" committed 2026-06-14.`
 - This is the same finding the 2026-06-16 monthly audit already flagged. Since then the app moved auth to Supabase (`9dad430`) and the plaintext/hash no longer appear in the current file — but both the plaintext password and two unsalted SHA-256 hashes of it remain permanently retrievable via `git log --all -p`.
 - **Action: treat this password as permanently burned (rotate anywhere reused); only purge history via `git filter-repo`/BFG if you're prepared to coordinate a force-push with any collaborators/forks.**
 - Side note: `dotfiles/reports/audit-2026-06-16.md:13` quotes this same plaintext password verbatim — a second live copy of an already-compromised credential sitting in a different repo. Low severity on its own since the credential is already burned, but redact it in future report writeups.
