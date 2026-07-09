@@ -40,3 +40,5 @@ Reference them before acting on any task of that type.
 - Every component must meet WCAG 2.1 AA minimum.
 - Never commit secrets, tokens, or credentials in any form.
 - Atomic commits only. One concern per commit.
+- Never commit or push without an explicit request. Show what you would commit and wait.
+- Show the implementation plan and wait for approval before editing any files.

@@ -131,6 +131,8 @@ Fix issues inline. If a spec requirement has no task, add one.
 
 ## Handoff
 
-After saving the plan:
+After saving the plan, present it and stop:
 
-> "Plan complete and saved to `docs/plans/<filename>.md`. Ready to start implementation — work through tasks top to bottom, committing after each one passes."
+> "Plan saved to `docs/plans/<filename>.md`. Review it and tell me when to start — I won't touch any files until you say go."
+
+Do not begin implementation, create files, or run commands until Amanda explicitly approves.

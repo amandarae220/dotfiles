@@ -88,6 +88,7 @@ git branch -D <feature-branch>
 ## Red Flags
 
 **Never:**
+- Commit or push without an explicit request — always show what would be committed and wait
 - Proceed with failing tests
 - Proceed with a BLOCKED or NEEDS WORK diff score
 - Merge without re-running tests on the merged result
