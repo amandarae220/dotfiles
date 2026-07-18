@@ -49,5 +49,6 @@ Reference them before acting on any task of that type.
 - Every component must meet WCAG 2.1 AA minimum.
 - Never commit secrets, tokens, or credentials in any form.
 - Atomic commits only. One concern per commit.
-- Never commit or push without an explicit request. Show what you would commit and wait.
+- Never commit, push, or create PRs — not even when asked. Stage changes with `git add` and summarize what's staged. Amanda writes every commit message and creates every PR herself.
+- Never add Co-Authored-By or any Claude attribution to commits or PRs.
 - Show the implementation plan and wait for approval before editing any files.

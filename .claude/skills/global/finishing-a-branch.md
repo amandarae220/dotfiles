@@ -2,9 +2,9 @@
 
 ## Overview
 
-Guide completion of development work: verify → score the diff → present options → execute choice.
+Guide completion of development work: verify → score the diff → stage → hand off.
 
-**Core principle:** Clean diff + passing tests before any merge or PR.
+**Core principle:** Clean diff + passing tests, then Amanda takes it from there.
 
 ## Step 1: Verify Tests
 
@@ -14,67 +14,44 @@ If tests fail: show failures, **STOP**. Fix before proceeding.
 
 ## Step 2: Score the Diff
 
-Run the `commit-review` skill on `git diff <base-branch>...HEAD`.
+Run the `commit-review` skill on `git diff`.
 
 - **BLOCKED** or **NEEDS WORK** → fix issues before continuing.
 - **READY** → continue to Step 3.
 
-## Step 3: Determine Base Branch
+## Step 3: Stage Changes
+
+Stage only the files changed for this feature — never use `git add .` or `git add -A`:
 
 ```bash
-git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
+git add path/to/file1 path/to/file2 ...
 ```
 
-Confirm with Amanda if unclear.
-
-## Step 4: Present Options
+Then show a summary:
 
 ```
-Implementation complete. Tests pass. Diff is READY. What would you like to do?
+Ready for your review:
 
-1. Merge back to <base-branch> locally
-2. Push and create a Pull Request
-3. Keep the branch as-is (I'll handle it later)
-4. Discard this work
+Staged files:
+  - path/to/file1 — [one-line description of what changed]
+  - path/to/file2 — [one-line description of what changed]
 
-Which option?
+Diff score: READY (N/10)
+Tests: passing
+
+Run `git diff --staged` to review before committing.
 ```
 
-## Step 5: Execute Choice
+**Stop here.** Amanda writes the commit message and creates the PR.
 
-### Option 1: Merge Locally
+## Step 4: Discard (if requested)
 
-```bash
-git checkout <base-branch>
-git pull
-git merge <feature-branch>
-```
+If Amanda asks to discard the work, confirm first:
 
-Re-run tests on merged result. If passing, delete branch:
-
-```bash
-git branch -d <feature-branch>
-```
-
-### Option 2: Push and Create PR
-
-```bash
-git push -u origin <feature-branch>
-```
-
-Use the `pr-template` skill to write the PR description. Do NOT delete branch — it stays alive for PR iteration.
-
-### Option 3: Keep As-Is
-
-Report: "Keeping branch `<name>` at current state." No action taken.
-
-### Option 4: Discard
-
-Confirm first:
 ```
 This will permanently delete:
 - Branch <name>
-- All commits: <commit-list>
+- All uncommitted changes
 
 Type 'discard' to confirm.
 ```
@@ -85,17 +62,20 @@ Wait for exact confirmation. Then:
 git branch -D <feature-branch>
 ```
 
-## Red Flags
+## Never
 
-**Never:**
-- Commit or push without an explicit request — always show what would be committed and wait
+- Run `git commit` — not even when asked
+- Run `git push` — not even when asked
+- Create a PR or draft PR
+- Use `git add .` or `git add -A` — stage specific files only
+- Add Co-Authored-By or any Claude attribution
 - Proceed with failing tests
 - Proceed with a BLOCKED or NEEDS WORK diff score
-- Merge without re-running tests on the merged result
 - Delete work without typed `discard` confirmation
-- Force-push without explicit request
 
-**Always:**
+## Always
+
 - Verify tests before scoring
-- Score the diff (commit-review) before presenting options
-- Get typed confirmation before discarding
+- Score the diff (commit-review) before staging
+- Stage specific files, never the whole working tree
+- Show a plain summary of what's staged and stop
